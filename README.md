@@ -61,12 +61,15 @@ pip install -r requirements.txt
 **Run the notebooks in the following order to reproduce the analysis**
 ### **a. Exploration**
 jupyter notebook notebooks/01_data_exploration.ipynb  
+
 *Visualizes distributions and correlations*
 ### **b. Preprocessing**
 jupyter notebook notebooks/02_preprocessing.ipynb  
+
 *Cleans data, encodes features, and saves train_data.csv / test_data.csv.*
 ### **c. Modeling**
 jupyter notebook notebooks/03_modeling.ipynb  
+
 *Trains the NumPy Linear Regression model and outputs metrics.*
 
 ## **6. Results**
@@ -74,15 +77,17 @@ jupyter notebook notebooks/03_modeling.ipynb
 The model was evaluated on the test set using Root Mean Squared Error (RMSE) and R-squared ($R^2$):
 - RMSE (after inverse log transformation): 49.47 USD
 - $R^2$ Score: 0.4777  
+
 **Visualizations**
 - Actual vs. Predicted: The model captures the general trend well, though it tends to underpredict high-end luxury listings (due to the "long tail" of prices).
 - Residuals: The residuals follow a bell-curve distribution, indicating the model errors are random and unbiased.
 - Feature Importance: room_type_Entire home/apt and neighbourhood_group_Manhattan were found to be the strongest drivers of higher prices.
 
 ## **7. Project Structure**
+```
 project-name/
-├── README.md               # Project documentation  
-├── requirements.txt        # Python dependencies  
+├── README.md               # Project documentation    
+├── requirements.txt        # Python dependencies    
 ├── data/  
 │   ├── raw/                # Original AB_NYC_2019.csv  
 │   └── processed/          # Processed train/test CSV files  
@@ -95,14 +100,15 @@ project-name/
     ├── data_processing.py  # Helper functions for loading/cleaning  
     └── models.py           
     └── visualization.py      
+```
 
 ## **8. Challenges & Solutions**
-| **Challenge**           | **Solution**                                                                                                                     |
-|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| No Pandas for CSV       | Used csv module and np.genfromtxt to parse mixed data types into structured NumPy arrays.                                        |
-| Manual One-Hot Encoding | Used np.unique to find categories and boolean indexing to create binary feature columns manually.                                |
-| Matrix Invertibility    | Used np.linalg.pinv (Pseudo-inverse) instead of np.linalg.inv to handle cases where singular matrices occurred during the Normal | 
-|                         | Equation calculation.                                                                                                            |
+| Challenge                 | Solution                                                                 |
+|---------------------------|--------------------------------------------------------------------------|
+| No Pandas for CSV         | Used `csv` module and `np.genfromtxt` to parse mixed data types.         |
+| Manual One-Hot Encoding   | Used `np.unique` and boolean indexing to create binary feature columns.  |
+| Matrix Invertibility      | Used `np.linalg.pinv` instead of `np.linalg.inv` to handle singularity.  |
+
 
 ## **9. Future Improvements**
 - Regularization: Implement Ridge Regression (L2) to penalize large coefficients and reduce overfitting.
